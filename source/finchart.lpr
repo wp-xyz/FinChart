@@ -1,4 +1,4 @@
-program finch;
+program FinChart;
 
 {$mode objfpc}{$H+}
 

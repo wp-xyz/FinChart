@@ -8,7 +8,7 @@
         <CompatibilityMode Value="True"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
-      <Title Value="finch"/>
+      <Title Value="finchart"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <Icon Value="0"/>
@@ -38,8 +38,9 @@
     </RequiredPackages>
     <Units Count="5">
       <Unit0>
-        <Filename Value="finch.lpr"/>
+        <Filename Value="finchart.lpr"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="FinChart"/>
       </Unit0>
       <Unit1>
         <Filename Value="fcmain.pas"/>
@@ -47,7 +48,6 @@
         <ComponentName Value="MainForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="fcMain"/>
       </Unit1>
       <Unit2>
         <Filename Value="fcstockitemform.pas"/>
@@ -73,7 +73,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="..\bin\$(TargetCPU)-$(TargetOS)\finCh"/>
+      <Filename Value="..\bin\$(TargetCPU)-$(TargetOS)\finchart"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

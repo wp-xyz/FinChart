@@ -11,11 +11,17 @@ unit fcmain;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, TAGraph, TACustomSeries, TASeries, TAMultiSeries,
-  TAChartExtentLink, TAIntervalSources, TAChartListbox, TATransformations,
-  TAFuncSeries, TASources, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, EditBtn, ComCtrls, Grids, Buttons, TACustomSource, TANavigation,
-  TATools, TALegend, types;
+  // RTL/FCL
+  Classes, SysUtils, Types,
+  // LazUtils
+  FileUtil,
+  // LCL
+  LCLIntf, Graphics, Forms, Controls, Dialogs, ExtCtrls,
+  StdCtrls, EditBtn, ComCtrls, Grids, Buttons,
+  // TAChart
+  TAGraph, TACustomSeries, TASeries, TAMultiSeries, TAChartExtentLink,
+  TAIntervalSources, TAChartListbox, TATransformations, TAFuncSeries, TASources,
+  TATools, TALegend, TACustomSource, TANavigation;
 
 type
 
@@ -114,6 +120,7 @@ type
     FChartRect: TRect;
     FmtSettings: TFormatSettings;
     procedure AddSeries(AList: TStringList; AStockName, ATickerSymbol, AStockCurrency: String);
+    procedure AdjustColWidths;
     function GetCellText(ACol, ARow: Integer): String;
     procedure PopulateSourceCombo;
     procedure PopulateStockCombo;
@@ -136,13 +143,13 @@ implementation
 {$R *.lfm}
 
 uses
-  {$IFDEF MSWINDOWS}
-   windows, wininet,
-  {$ELSE}
-   {$IF FPC_FullVersion >= 30200}opensslsockets,{$IFEND}
-   fphttpclient,
-  {$ENDIF}
-  lclintf, inifiles, LazFileUtils, DateUtils, TypInfo,
+ {$IFDEF MSWINDOWS}
+  windows, wininet,
+ {$ELSE}
+  {$IF FPC_FullVersion >= 30200}opensslsockets,{$IFEND}
+  fphttpclient,
+ {$ENDIF}
+  inifiles, LazFileUtils, DateUtils, TypInfo,
   TAChartUtils, TAChartAxisUtils, 
   fcStockItemForm, fcProviders, fcStockItems;
 
@@ -350,6 +357,7 @@ begin
   end;
 
   DataGrid.RowCount := DataGrid.FixedRows + Length(StockData);
+  AdjustColWidths;
 
   rndSeed := RandSeed;
   try
@@ -379,6 +387,27 @@ begin
   ChartListboxSplitter.Left := 0;
 end;
 
+procedure TMainForm.AdjustColWidths;
+var
+  w: Integer;
+  i: Integer;
+  bmp: Graphics.TBitmap;
+begin
+  bmp := Graphics.TBitmap.Create;
+  try
+    bmp.SetSize(10, 10);
+    bmp.Canvas.Font.Assign(DataGrid.Font);
+    w := bmp.Canvas.TextWidth('  9.999,99  ');
+    for i := 2 to DataGrid.ColCount-2 do
+      DataGrid.ColWidths[i] := w;
+    DataGrid.ColWidths[0] := bmp.Canvas.TextWidth('  99999  ');
+    DataGrid.ColWidths[1] := bmp.Canvas.TextWidth('    Mo 99.99.9999    ');
+    DataGrid.ColWidths[DataGrid.ColCount-1] := bmp.Canvas.TextWidth(' 999.999.999.999.999 ');
+  finally
+    bmp.Free;
+  end;
+end;
+
 procedure TMainForm.ApplicationPropertiesException(Sender: TObject;
   E: Exception);
 begin
@@ -386,17 +415,7 @@ begin
 end;
 
 procedure TMainForm.BeforeRun;
-var
-  w: Integer;
-  i: Integer;
 begin
-  w := DataGrid.Canvas.TextWidth('  999.999.999  ');
-  for i:=2 to DataGrid.ColCount-2 do
-    DataGrid.ColWidths[i] := w;
-  DataGrid.ColWidths[0] := DataGrid.Canvas.TextWidth('  999999  ');
-  DataGrid.ColWidths[1] := DataGrid.Canvas.TextWidth('    99.99.9999    ');
-  DataGrid.ColWidths[DataGrid.ColCount-1] := DataGrid.Canvas.TextWidth(' 999.999.999.999.999 ');
-
   ReadIni;
 end;
 
@@ -686,7 +705,7 @@ var
 begin
   s := GetCellText(ACol, ARow);
   if s <> '' then begin
-    InflateRect(ARect, -constCellPadding, -constCellPadding);
+    InflateRect(ARect, -varCellPadding, -varCellPadding);
     DataGrid.Canvas.TextRect(ARect, ARect.Left, ARect.Top, s);
   end;
 end;
@@ -719,7 +738,7 @@ begin
     index := ASender.PointIndex;
     curr := SelectedStockCurrency;
     provider := GetProvider(CbProvider.ItemIndex);
-    fmt := 'dddd';
+    fmt := 'dddd, ddddd';
     if provider.AllowDateRange then
       case RgInterval.ItemIndex of
         2: fmt := 'mmmm yyyy';
@@ -788,6 +807,16 @@ begin
   RgInterval.Font.Style := [fsItalic];
 end;
 
+function MyDateToStr(ADate: TDate): String;
+var
+  s: String;
+begin
+  Result := Format('%s %s', [
+    FormatDateTime('ddd', ADate),
+    DateToStr(ADate)
+  ]);
+end;
+
 function TMainForm.GetCellText(ACol, ARow: Integer): String;
 var
   i: Integer;
@@ -808,7 +837,7 @@ begin
     if (i >= 0) and (i < Length(StockData)) then
       case ACol of
         0: ;
-        1: Result := DateToStr(StockData[i].DateValue);
+        1: Result := MyDateToStr(StockData[i].DateValue);
         2: Result := Format('%.2f', [StockData[i].OpenValue]);
         3: Result := Format('%.2f', [StockData[i].HighValue]);
         4: Result := Format('%.2f', [StockData[i].LowValue]);
