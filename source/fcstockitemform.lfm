@@ -1,0 +1,95 @@
+object StockItemForm: TStockItemForm
+  Left = 290
+  Height = 444
+  Top = 157
+  Width = 300
+  ActiveControl = EdCompany
+  BorderStyle = bsDialog
+  Caption = 'New stock item'
+  ClientHeight = 444
+  ClientWidth = 300
+  LCLVersion = '3.99.0.0'
+  object ButtonPanel1: TButtonPanel
+    Left = 6
+    Height = 34
+    Top = 404
+    Width = 288
+    OKButton.Name = 'OKButton'
+    OKButton.DefaultCaption = True
+    OKButton.OnClick = OKButtonClick
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CancelButton.Name = 'CancelButton'
+    CancelButton.DefaultCaption = True
+    TabOrder = 3
+    ShowButtons = [pbOK, pbCancel]
+  end
+  object EdCompany: TEdit
+    Left = 16
+    Height = 23
+    Top = 31
+    Width = 264
+    TabOrder = 0
+  end
+  object LblCompanyName: TLabel
+    Left = 16
+    Height = 15
+    Top = 12
+    Width = 85
+    Caption = 'Company name'
+    FocusControl = EdCompany
+    ParentColor = False
+  end
+  object lblDefaultTicker: TLabel
+    Left = 16
+    Height = 15
+    Top = 72
+    Width = 112
+    Caption = 'Default ticker symbol'
+    FocusControl = edDefaultTicker
+    ParentColor = False
+  end
+  object edDefaultTicker: TEdit
+    Left = 16
+    Height = 23
+    Top = 91
+    Width = 128
+    TabOrder = 1
+  end
+  object LblSymbol1: TLabel
+    Left = 16
+    Height = 15
+    Top = 304
+    Width = 190
+    Caption = 'Currency symbol (e.g., USD, EUR, ...)'
+    FocusControl = EdCurrency
+    ParentColor = False
+  end
+  object EdCurrency: TEdit
+    Left = 16
+    Height = 23
+    Top = 323
+    Width = 264
+    TabOrder = 2
+  end
+  object vleTickerSymbols: TValueListEditor
+    Left = 20
+    Height = 132
+    Top = 141
+    Width = 260
+    FixedCols = 0
+    RowCount = 2
+    TabOrder = 4
+    OnPrepareCanvas = vleTickerSymbolsPrepareCanvas
+    TitleCaptions.Strings = (
+      'Provider'
+      'Ticker Symbol'
+    )
+    ColWidths = (
+      128
+      128
+    )
+  end
+end

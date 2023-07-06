@@ -1,0 +1,795 @@
+object MainForm: TMainForm
+  Left = 341
+  Height = 554
+  Top = 168
+  Width = 1258
+  Caption = 'Financial Charts'
+  ClientHeight = 554
+  ClientWidth = 1258
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  LCLVersion = '3.99.0.0'
+  object LeftPanel: TPanel
+    Left = 12
+    Height = 542
+    Top = 0
+    Width = 219
+    Align = alLeft
+    BorderSpacing.Left = 12
+    BorderSpacing.Bottom = 12
+    BevelOuter = bvNone
+    ClientHeight = 542
+    ClientWidth = 219
+    TabOrder = 0
+    object CbStockItems: TComboBox
+      AnchorSideLeft.Control = LeftPanel
+      AnchorSideTop.Control = BtnDeleteStockItem
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Control = LeftPanel
+      AnchorSideRight.Side = asrBottom
+      Left = 0
+      Height = 23
+      Top = 102
+      Width = 219
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Top = 2
+      DropDownCount = 25
+      ItemHeight = 15
+      OnSelect = CbStockItemsSelect
+      Style = csDropDownList
+      TabOrder = 2
+    end
+    object lblStock: TLabel
+      AnchorSideLeft.Control = LeftPanel
+      AnchorSideBottom.Control = CbStockItems
+      Left = 0
+      Height = 15
+      Top = 85
+      Width = 60
+      Anchors = [akLeft, akBottom]
+      Caption = 'Stock name'
+      FocusControl = CbStockItems
+      Font.Style = [fsItalic]
+      ParentFont = False
+    end
+    object LblStartDate: TLabel
+      AnchorSideLeft.Control = LeftPanel
+      AnchorSideTop.Control = LblTickerSymbol
+      AnchorSideTop.Side = asrBottom
+      Left = 0
+      Height = 15
+      Top = 160
+      Width = 52
+      BorderSpacing.Top = 16
+      Caption = 'Start date'
+      FocusControl = CbStockItems
+      Font.Style = [fsItalic]
+      ParentFont = False
+    end
+    object BtnLoad: TButton
+      AnchorSideRight.Control = LeftPanel
+      AnchorSideRight.Side = asrBottom
+      AnchorSideBottom.Control = LeftPanel
+      AnchorSideBottom.Side = asrBottom
+      Left = 162
+      Height = 25
+      Top = 517
+      Width = 57
+      Anchors = [akRight, akBottom]
+      AutoSize = True
+      Caption = 'Show'
+      Font.Style = [fsBold]
+      OnClick = BtnLoadClick
+      ParentFont = False
+      TabOrder = 6
+    end
+    object EdStartDate: TDateEdit
+      AnchorSideLeft.Control = LeftPanel
+      AnchorSideTop.Control = LblStartDate
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Control = LeftPanel
+      AnchorSideRight.Side = asrBottom
+      Left = 0
+      Height = 23
+      Top = 177
+      Width = 219
+      CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+      DateOrder = doNone
+      ButtonWidth = 23
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Top = 2
+      NumGlyphs = 1
+      MaxLength = 0
+      TabOrder = 3
+    end
+    object LblEndDate: TLabel
+      AnchorSideLeft.Control = LeftPanel
+      AnchorSideTop.Control = EdStartDate
+      AnchorSideTop.Side = asrBottom
+      Left = 0
+      Height = 15
+      Top = 208
+      Width = 47
+      BorderSpacing.Top = 8
+      Caption = 'End date'
+      FocusControl = CbStockItems
+      Font.Style = [fsItalic]
+      ParentFont = False
+    end
+    object EdEndDate: TDateEdit
+      AnchorSideLeft.Control = LeftPanel
+      AnchorSideTop.Control = LblEndDate
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Control = LeftPanel
+      AnchorSideRight.Side = asrBottom
+      Left = 0
+      Height = 23
+      Top = 225
+      Width = 219
+      CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
+      DateOrder = doNone
+      ButtonWidth = 23
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Top = 2
+      NumGlyphs = 1
+      MaxLength = 0
+      TabOrder = 4
+    end
+    object RgInterval: TRadioGroup
+      AnchorSideLeft.Control = LeftPanel
+      AnchorSideTop.Control = EdEndDate
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Control = LeftPanel
+      AnchorSideRight.Side = asrBottom
+      Left = 0
+      Height = 47
+      Top = 264
+      Width = 219
+      Anchors = [akTop, akLeft, akRight]
+      AutoFill = True
+      AutoSize = True
+      BorderSpacing.Top = 16
+      Caption = 'Interval'
+      ChildSizing.LeftRightSpacing = 16
+      ChildSizing.TopBottomSpacing = 4
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclTopToBottomThenLeftToRight
+      ChildSizing.ControlsPerLine = 1
+      ClientHeight = 27
+      ClientWidth = 215
+      ColumnLayout = clVerticalThenHorizontal
+      Columns = 3
+      ItemIndex = 0
+      Items.Strings = (
+        'day'
+        'week'
+        'month'
+      )
+      TabOrder = 5
+    end
+    object BtnAddStockItem: TSpeedButton
+      AnchorSideTop.Control = BtnDeleteStockItem
+      AnchorSideRight.Control = BtnEditStockItem
+      Left = 142
+      Height = 23
+      Top = 77
+      Width = 23
+      Anchors = [akTop, akRight]
+      BorderSpacing.Right = 4
+      Caption = '+'
+      OnClick = BtnAddStockItemClick
+    end
+    object BtnDeleteStockItem: TSpeedButton
+      AnchorSideTop.Control = Bevel1
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Control = LeftPanel
+      AnchorSideRight.Side = asrBottom
+      Left = 196
+      Height = 23
+      Top = 77
+      Width = 23
+      Anchors = [akTop, akRight]
+      Caption = '-'
+      OnClick = BtnDeleteStockItemClick
+    end
+    object lblProvider: TLabel
+      AnchorSideLeft.Control = LeftPanel
+      AnchorSideTop.Control = LeftPanel
+      Left = 0
+      Height = 15
+      Top = 12
+      Width = 44
+      BorderSpacing.Top = 12
+      Caption = 'Provider'
+      FocusControl = CbProvider
+      Font.Style = [fsItalic]
+      ParentFont = False
+    end
+    object CbProvider: TComboBox
+      AnchorSideLeft.Control = LeftPanel
+      AnchorSideTop.Control = lblProvider
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Control = BtnURL
+      Left = 0
+      Height = 23
+      Top = 29
+      Width = 168
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Top = 2
+      BorderSpacing.Right = 4
+      DropDownCount = 25
+      ItemHeight = 15
+      ItemIndex = 1
+      Items.Strings = (
+        'Google'
+        'Yahoo'
+        'AlphaVantage'
+      )
+      OnSelect = CbProviderSelect
+      Style = csDropDownList
+      TabOrder = 0
+      Text = 'Yahoo'
+    end
+    object BtnEditStockItem: TSpeedButton
+      AnchorSideTop.Control = BtnDeleteStockItem
+      AnchorSideRight.Control = BtnDeleteStockItem
+      Left = 169
+      Height = 23
+      Top = 77
+      Width = 23
+      Anchors = [akTop, akRight]
+      BorderSpacing.Right = 4
+      Caption = '...'
+      OnClick = BtnEditStockItemClick
+    end
+    object LblTickerSymbol: TLabel
+      AnchorSideLeft.Control = Label1
+      AnchorSideLeft.Side = asrBottom
+      AnchorSideTop.Control = CbStockItems
+      AnchorSideTop.Side = asrBottom
+      Left = 81
+      Height = 15
+      Top = 129
+      Width = 92
+      BorderSpacing.Left = 8
+      BorderSpacing.Top = 4
+      Caption = 'LblTickerSymbol'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Visible = False
+    end
+    object BtnURL: TButton
+      AnchorSideTop.Control = CbProvider
+      AnchorSideTop.Side = asrCenter
+      AnchorSideRight.Control = LeftPanel
+      AnchorSideRight.Side = asrBottom
+      Left = 172
+      Height = 25
+      Top = 28
+      Width = 47
+      Anchors = [akTop, akRight]
+      AutoSize = True
+      Caption = 'URL'
+      OnClick = BtnURLClick
+      TabOrder = 1
+    end
+    object Label1: TLabel
+      AnchorSideLeft.Control = CbStockItems
+      AnchorSideTop.Control = CbStockItems
+      AnchorSideTop.Side = asrBottom
+      Left = 0
+      Height = 15
+      Top = 129
+      Width = 73
+      BorderSpacing.Top = 4
+      Caption = 'Ticker symbol:'
+      Font.Style = [fsItalic]
+      ParentFont = False
+    end
+    object Bevel1: TBevel
+      AnchorSideLeft.Control = LeftPanel
+      AnchorSideTop.Control = CbProvider
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Control = LeftPanel
+      AnchorSideRight.Side = asrBottom
+      Left = 0
+      Height = 3
+      Top = 64
+      Width = 219
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Top = 12
+      BorderSpacing.Bottom = 10
+      Shape = bsTopLine
+    end
+  end
+  object Splitter1: TSplitter
+    Left = 231
+    Height = 554
+    Top = 0
+    Width = 5
+  end
+  object PageControl: TPageControl
+    Left = 240
+    Height = 546
+    Top = 4
+    Width = 1014
+    ActivePage = PgSheet
+    Align = alClient
+    BorderSpacing.Around = 4
+    TabIndex = 0
+    TabOrder = 2
+    object PgSheet: TTabSheet
+      Caption = 'Charts'
+      ClientHeight = 518
+      ClientWidth = 1006
+      object ChartPanel: TPanel
+        Left = 0
+        Height = 518
+        Top = 0
+        Width = 831
+        Align = alClient
+        BevelOuter = bvNone
+        ClientHeight = 518
+        ClientWidth = 831
+        Color = clNone
+        ParentBackground = False
+        ParentColor = False
+        TabOrder = 0
+        object OHLCChart: TChart
+          Left = 0
+          Height = 312
+          Top = 0
+          Width = 831
+          AxisList = <          
+            item
+              Grid.Color = clGray
+              Marks.Format = '%0:.1n'
+              Marks.LabelBrush.Style = bsClear
+              Marks.Style = smsCustom
+              Minors = <>
+              Title.LabelFont.Height = -16
+              Title.LabelFont.Orientation = 900
+              Title.LabelFont.Style = [fsBold]
+              Title.Visible = True
+              Title.Caption = 'Stock price'
+              Title.LabelBrush.Style = bsClear
+            end          
+            item
+              Grid.Color = clGray
+              Intervals.MaxLength = 150
+              Intervals.MinLength = 95
+              Alignment = calBottom
+              Marks.Format = '%2:s'
+              Marks.LabelBrush.Style = bsClear
+              Marks.Source = DateTimeIntervalChartSource
+              Marks.Style = smsLabel
+              Minors = <>
+              Title.LabelBrush.Style = bsClear
+            end>
+          BackColor = clBlack
+          Foot.Brush.Color = clBtnFace
+          Foot.Font.Color = clBlue
+          Margins.Right = 16
+          Title.Brush.Color = clBtnFace
+          Title.Brush.Style = bsClear
+          Title.Font.Color = clBlue
+          Title.Font.Height = -17
+          Title.Font.Style = [fsBold]
+          Title.Text.Strings = (
+            'TAChart'
+          )
+          Toolset = ChartToolset
+          OnAfterDrawBackWall = OHLCChartAfterDrawBackWall
+          Align = alClient
+          object OHLCSeries: TOpenHighLowCloseSeries
+            CandlestickDownBrush.Color = clRed
+            CandlestickUpBrush.Color = clLime
+            Mode = mCandleStick
+            Source = OHLCSource
+          end
+          object MoveAveSeries50: TLineSeries
+            Title = '50-day average'
+            LinePen.Color = clSkyBlue
+            Source = MovingAverageSource50
+          end
+          object MoveAreSeries200: TLineSeries
+            Title = '200-day average'
+            LinePen.Color = clBlue
+            Source = MovingAverageSource200
+          end
+        end
+        object VolumeChart: TChart
+          Left = 0
+          Height = 184
+          Top = 317
+          Width = 831
+          AxisList = <          
+            item
+              Grid.Color = clGray
+              Marks.Format = '%0:.0n'
+              Marks.LabelBrush.Style = bsClear
+              Marks.Style = smsCustom
+              Minors = <>
+              Title.LabelFont.Height = -16
+              Title.LabelFont.Orientation = 900
+              Title.LabelFont.Style = [fsBold]
+              Title.Visible = True
+              Title.Caption = 'Volume'
+              Title.LabelBrush.Style = bsClear
+            end          
+            item
+              Grid.Color = clGray
+              Intervals.MaxLength = 150
+              Intervals.MinLength = 95
+              Alignment = calBottom
+              Marks.Format = '%2:s'
+              Marks.LabelBrush.Style = bsClear
+              Marks.Source = DateTimeIntervalChartSource
+              Marks.Style = smsLabel
+              Minors = <>
+              Title.LabelBrush.Style = bsClear
+            end>
+          BackColor = clBlack
+          Foot.Brush.Color = clBtnFace
+          Foot.Font.Color = clBlue
+          Margins.Right = 16
+          Title.Brush.Color = clBtnFace
+          Title.Font.Color = clBlue
+          Title.Text.Strings = (
+            'TAChart'
+          )
+          Toolset = ChartToolset
+          Align = alBottom
+          object VolumeSeries: TAreaSeries
+            Source = VolumeSource
+          end
+        end
+        object NavScrollBar: TChartNavScrollBar
+          Left = 0
+          Height = 17
+          Top = 501
+          Width = 831
+          AutoPageSize = True
+          Chart = OHLCChart
+          Align = alBottom
+          PageSize = 0
+          TabOrder = 3
+        end
+        object ChartSplitter: TSplitter
+          Cursor = crVSplit
+          Left = 0
+          Height = 5
+          Top = 312
+          Width = 831
+          Align = alBottom
+          ResizeAnchor = akBottom
+        end
+      end
+      object ChartListboxSplitter: TSplitter
+        Left = 831
+        Height = 518
+        Top = 0
+        Width = 5
+        Align = alRight
+        ResizeAnchor = akRight
+        Visible = False
+      end
+      object ChartListboxPanel: TPanel
+        Left = 836
+        Height = 518
+        Top = 0
+        Width = 170
+        Align = alRight
+        BevelOuter = bvNone
+        ClientHeight = 518
+        ClientWidth = 170
+        TabOrder = 2
+        Visible = False
+        object ChartListbox: TChartListbox
+          Left = 0
+          Height = 389
+          Top = 0
+          Width = 170
+          Chart = OHLCChart
+          OnAddSeries = ChartListboxAddSeries
+          Align = alClient
+          TabOrder = 0
+        end
+        object Panel1: TPanel
+          Left = 0
+          Height = 129
+          Top = 389
+          Width = 170
+          Align = alBottom
+          AutoSize = True
+          BevelOuter = bvNone
+          ClientHeight = 129
+          ClientWidth = 170
+          TabOrder = 1
+          object CbShowVolumeChart: TCheckBox
+            AnchorSideLeft.Control = Panel1
+            AnchorSideTop.Control = Label6
+            AnchorSideTop.Side = asrBottom
+            AnchorSideBottom.Side = asrBottom
+            Left = 0
+            Height = 19
+            Top = 110
+            Width = 120
+            BorderSpacing.Top = 8
+            Caption = 'Show volume chart'
+            Checked = True
+            OnChange = CbShowVolumeChartChange
+            State = cbChecked
+            TabOrder = 0
+          end
+          object lblDate: TLabel
+            AnchorSideTop.Control = Panel1
+            AnchorSideRight.Control = Panel1
+            AnchorSideRight.Side = asrBottom
+            Left = 133
+            Height = 15
+            Top = 4
+            Width = 37
+            Anchors = [akTop, akRight]
+            BorderSpacing.Top = 4
+            Caption = 'lblDate'
+          end
+          object lblOpen: TLabel
+            AnchorSideLeft.Control = Panel1
+            AnchorSideTop.Control = Label2
+            AnchorSideRight.Control = Panel1
+            AnchorSideRight.Side = asrBottom
+            Left = 128
+            Height = 15
+            Top = 23
+            Width = 42
+            Anchors = [akTop, akRight]
+            BorderSpacing.Left = 16
+            Caption = 'lblOpen'
+          end
+          object lblHigh: TLabel
+            AnchorSideTop.Control = Label3
+            AnchorSideRight.Control = Panel1
+            AnchorSideRight.Side = asrBottom
+            Left = 131
+            Height = 15
+            Top = 38
+            Width = 39
+            Anchors = [akTop, akRight]
+            BorderSpacing.Left = 16
+            Caption = 'lblHigh'
+          end
+          object lblLow: TLabel
+            AnchorSideTop.Control = Label4
+            AnchorSideRight.Control = Panel1
+            AnchorSideRight.Side = asrBottom
+            Left = 135
+            Height = 15
+            Top = 53
+            Width = 35
+            Anchors = [akTop, akRight]
+            BorderSpacing.Left = 16
+            Caption = 'lblLow'
+          end
+          object lblClose: TLabel
+            AnchorSideTop.Control = Label5
+            AnchorSideRight.Control = Panel1
+            AnchorSideRight.Side = asrBottom
+            Left = 128
+            Height = 15
+            Top = 68
+            Width = 42
+            Anchors = [akTop, akRight]
+            BorderSpacing.Left = 16
+            Caption = 'lblClose'
+          end
+          object lblVolume: TLabel
+            AnchorSideTop.Control = Label6
+            AnchorSideRight.Control = Panel1
+            AnchorSideRight.Side = asrBottom
+            Left = 117
+            Height = 15
+            Top = 87
+            Width = 53
+            Anchors = [akTop, akRight]
+            BorderSpacing.Left = 16
+            Caption = 'lblVolume'
+          end
+          object Label2: TLabel
+            AnchorSideLeft.Control = Panel1
+            AnchorSideTop.Control = Label7
+            AnchorSideTop.Side = asrBottom
+            Left = 8
+            Height = 15
+            Top = 23
+            Width = 29
+            BorderSpacing.Left = 8
+            Caption = 'Open'
+            Font.Style = [fsItalic]
+            ParentFont = False
+          end
+          object Label3: TLabel
+            AnchorSideLeft.Control = Panel1
+            AnchorSideTop.Control = Label2
+            AnchorSideTop.Side = asrBottom
+            Left = 8
+            Height = 15
+            Top = 38
+            Width = 27
+            BorderSpacing.Left = 8
+            Caption = 'High'
+            Font.Style = [fsItalic]
+            ParentFont = False
+          end
+          object Label4: TLabel
+            AnchorSideLeft.Control = Panel1
+            AnchorSideTop.Control = Label3
+            AnchorSideTop.Side = asrBottom
+            Left = 8
+            Height = 15
+            Top = 53
+            Width = 21
+            BorderSpacing.Left = 8
+            Caption = 'Low'
+            Font.Style = [fsItalic]
+            ParentFont = False
+          end
+          object Label5: TLabel
+            AnchorSideLeft.Control = Panel1
+            AnchorSideTop.Control = Label4
+            AnchorSideTop.Side = asrBottom
+            Left = 8
+            Height = 15
+            Top = 68
+            Width = 28
+            BorderSpacing.Left = 8
+            Caption = 'Close'
+            Font.Style = [fsItalic]
+            ParentFont = False
+          end
+          object Label6: TLabel
+            AnchorSideLeft.Control = Panel1
+            AnchorSideTop.Control = Label5
+            AnchorSideTop.Side = asrBottom
+            Left = 8
+            Height = 15
+            Top = 87
+            Width = 40
+            BorderSpacing.Left = 8
+            BorderSpacing.Top = 4
+            Caption = 'Volume'
+            Font.Style = [fsItalic]
+            ParentFont = False
+          end
+          object Label7: TLabel
+            AnchorSideLeft.Control = Panel1
+            AnchorSideTop.Control = Panel1
+            Left = 0
+            Height = 15
+            Top = 4
+            Width = 26
+            BorderSpacing.Top = 4
+            BorderSpacing.Bottom = 4
+            Caption = 'Date'
+            Font.Style = [fsItalic]
+            ParentFont = False
+          end
+        end
+      end
+    end
+    object PgTable: TTabSheet
+      Caption = 'Table'
+      ClientHeight = 518
+      ClientWidth = 1006
+      object DataGrid: TDrawGrid
+        Left = 0
+        Height = 518
+        Top = 0
+        Width = 1006
+        Align = alClient
+        AlternateColor = 16119285
+        ColCount = 7
+        ExtendedSelect = False
+        MouseWheelOption = mwGrid
+        Options = [goFixedHorzLine, goHorzLine, goRangeSelect, goThumbTracking, goFixedRowNumbering]
+        TabOrder = 0
+        TitleStyle = tsNative
+        OnDrawCell = DataGridDrawCell
+        OnPrepareCanvas = DataGridPrepareCanvas
+      end
+    end
+    object PgRaw: TTabSheet
+      Caption = 'Raw'
+      ClientHeight = 518
+      ClientWidth = 1006
+      object RawData: TMemo
+        Left = 0
+        Height = 518
+        Top = 0
+        Width = 1006
+        Align = alClient
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -12
+        Font.Name = 'Courier New'
+        Font.Pitch = fpFixed
+        Font.Quality = fqDraft
+        ParentFont = False
+        ScrollBars = ssAutoBoth
+        TabOrder = 0
+      end
+    end
+  end
+  object ChartExtentLink: TChartExtentLink
+    LinkedCharts = <    
+      item
+        Chart = OHLCChart
+      end    
+      item
+        Chart = VolumeChart
+      end>
+    Mode = elmOnlyX
+    Left = 436
+    Top = 156
+  end
+  object MovingAverageSource50: TCalculatedChartSource
+    AccumulationMethod = camAverage
+    AccumulationRange = 50
+    Origin = OHLCSource
+    ReorderYList = '2'
+    Left = 608
+    Top = 136
+  end
+  object OHLCSource: TUserDefinedChartSource
+    OnGetChartDataItem = OHLCSourceGetChartDataItem
+    YCount = 4
+    Left = 608
+    Top = 40
+  end
+  object VolumeSource: TUserDefinedChartSource
+    OnGetChartDataItem = VolumeSourceGetChartDataItem
+    Left = 608
+    Top = 381
+  end
+  object MovingAverageSource200: TCalculatedChartSource
+    AccumulationMethod = camAverage
+    AccumulationRange = 200
+    Origin = OHLCSource
+    ReorderYList = '2'
+    Left = 608
+    Top = 200
+  end
+  object ChartToolset: TChartToolset
+    Left = 824
+    Top = 56
+    object ZoomDragTool: TZoomDragTool
+      Shift = [ssLeft]
+      Brush.Color = clSilver
+      DrawingMode = tdmNormal
+      Transparency = 200
+    end
+    object PanDragTool: TPanDragTool
+      Shift = [ssRight]
+      LimitToExtent = [pdUp]
+    end
+    object DataPointCrosshairTool: TDataPointCrosshairTool
+      AffectedSeries = '0'
+      OnDraw = DataPointCrosshairToolDraw
+      Size = 16
+    end
+  end
+  object DateTimeIntervalChartSource: TDateTimeIntervalChartSource
+    Params.MaxLength = 60
+    Params.MinLength = 40
+    Steps = [dtsYear, dtsMonth, dtsWeek, dtsDay, dtsHour, dtsMinute, dtsSecond, dtsMillisecond]
+    Left = 824
+    Top = 381
+  end
+  object ApplicationProperties: TApplicationProperties
+    OnException = ApplicationPropertiesException
+    Left = 272
+    Top = 40
+  end
+end
