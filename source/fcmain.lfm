@@ -54,13 +54,12 @@ object MainForm: TMainForm
     end
     object LblStartDate: TLabel
       AnchorSideLeft.Control = LeftPanel
-      AnchorSideTop.Control = LblTickerSymbol
+      AnchorSideTop.Control = Bevel2
       AnchorSideTop.Side = asrBottom
       Left = 0
       Height = 15
-      Top = 160
+      Top = 169
       Width = 52
-      BorderSpacing.Top = 16
       Caption = 'Start date'
       FocusControl = CbStockItems
       Font.Style = [fsItalic]
@@ -91,7 +90,7 @@ object MainForm: TMainForm
       AnchorSideRight.Side = asrBottom
       Left = 0
       Height = 23
-      Top = 177
+      Top = 186
       Width = 219
       CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
       DateOrder = doNone
@@ -108,7 +107,7 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrBottom
       Left = 0
       Height = 15
-      Top = 208
+      Top = 217
       Width = 47
       BorderSpacing.Top = 8
       Caption = 'End date'
@@ -124,7 +123,7 @@ object MainForm: TMainForm
       AnchorSideRight.Side = asrBottom
       Left = 0
       Height = 23
-      Top = 225
+      Top = 234
       Width = 219
       CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames]
       DateOrder = doNone
@@ -143,7 +142,7 @@ object MainForm: TMainForm
       AnchorSideRight.Side = asrBottom
       Left = 0
       Height = 47
-      Top = 264
+      Top = 273
       Width = 219
       Anchors = [akTop, akLeft, akRight]
       AutoFill = True
@@ -298,6 +297,21 @@ object MainForm: TMainForm
       Left = 0
       Height = 3
       Top = 64
+      Width = 219
+      Anchors = [akTop, akLeft, akRight]
+      BorderSpacing.Top = 12
+      BorderSpacing.Bottom = 10
+      Shape = bsTopLine
+    end
+    object Bevel2: TBevel
+      AnchorSideLeft.Control = LeftPanel
+      AnchorSideTop.Control = Label1
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Control = LeftPanel
+      AnchorSideRight.Side = asrBottom
+      Left = 0
+      Height = 3
+      Top = 156
       Width = 219
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Top = 12

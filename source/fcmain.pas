@@ -30,6 +30,7 @@ type
   TMainForm = class(TForm)
     ApplicationProperties: TApplicationProperties;
     Bevel1: TBevel;
+    Bevel2: TBevel;
     BtnEditStockItem: TSpeedButton;
     BtnDeleteStockItem: TSpeedButton;
     BtnLoad: TButton;
